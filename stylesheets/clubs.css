@@ -1,0 +1,243 @@
+/* Clubs page styles. */
+
+/* Clubs and projects page styles, including the project details modal. */
+.clubs-section {
+  padding: 40px 0 88px;
+}
+
+.section-header {
+  max-width: var(--max-width);
+  margin: 0 auto 36px;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--on-surface-variant);
+  padding: 8px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 120ms var(--ease-spring),
+    box-shadow 160ms ease;
+}
+
+.filter-btn:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+}
+
+.projects-grid {
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+
+.progress-container {
+  margin: 24px 0 16px;
+}
+
+.progress-bar {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-top: 8px;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--wwdc-indigo), var(--wwdc-cyan));
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  border-radius: var(--radius-pill);
+  transition: width 600ms var(--ease-spring);
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 5, 8, 0.82);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--ease-out);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  max-width: 620px;
+  width: 90%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(18, 22, 36, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+  0 32px 80px -16px rgba(0, 0, 0, 0.85),
+  0 0 40px -10px rgba(56, 189, 248, 0.25),
+  var(--glass-specular);
+  transform: scale(0.95) translateY(8px);
+  opacity: 0;
+  transition:
+  transform 280ms var(--ease-spring),
+  opacity 240ms ease-out;
+}
+
+.modal-overlay.active .modal-content {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: var(--primary);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+  background-color 160ms ease,
+  transform 120ms var(--ease-spring);
+}
+
+.modal-close:active {
+  transform: scale(0.9);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.08);
+  }
+}
+
+.modal-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 16px 0;
+  padding: 18px;
+  background: rgba(10, 12, 20, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+}
+
+
+@media (max-width: 768px) {
+  .modal-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==============================================================
+   Clubs page overrides
+   Page-specific UI tuning for project discovery and filters.
+   ==============================================================
+*/
+
+.page-clubs {
+  --page-accent: rgba(56, 189, 248, 0.15);
+}
+
+.page-clubs .page-header {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.page-clubs .filter-bar {
+  margin-top: 0.5rem;
+}
+
+.page-clubs .glass-card {
+  border-color: rgba(56, 189, 248, 0.18);
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}

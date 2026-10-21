@@ -1,0 +1,289 @@
+/* Events and fests page styles. */
+.events-section {
+  padding: 40px 0 88px;
+}
+
+.events-section .projects-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+  align-items: stretch;
+}
+
+/* Event and competency card internals stay with this page, not the global sheet. */
+.page-events .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.page-events .card-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+
+.page-events .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.page-events .progress-bar {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.page-events .progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--wwdc-indigo), var(--wwdc-cyan));
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  transition: width 600ms var(--ease-spring);
+}
+
+.page-events .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--on-surface-variant);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.section-header {
+  max-width: var(--max-width);
+  margin: 0 auto 36px;
+  padding: 0 var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--on-surface-variant);
+  padding: 8px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 120ms var(--ease-spring),
+    box-shadow 160ms ease;
+}
+
+.filter-btn:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: var(--primary);
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+}
+
+.fest-hero-card {
+display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+  padding: 36px;
+  margin-bottom: 56px;
+  border-color: rgba(56, 189, 248, 0.28);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.8), 0 0 35px -5px rgba(56, 189, 248, 0.15), var(--glass-specular);
+}
+.fest-hero-image-wrapper {
+position: relative;
+  height: 380px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.fest-hero-image {
+width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-spring);
+}
+.fest-hero-card:hover .fest-hero-image {
+transform: scale(1.04);
+}
+.fest-hero-badge {
+position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(7, 8, 12, 0.85);
+  backdrop-filter: blur(16px);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: var(--wwdc-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+.fests-grid {
+display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 64px;
+}
+.fest-card {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+height: 100%;
+}
+
+.page-events .event-card {
+transition:
+  transform 180ms var(--ease-out),
+  opacity 160ms ease-out;
+}
+.fest-card-image {
+height: 180px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.fest-card-image img {
+width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease-spring);
+}
+.fest-card:hover .fest-card-image img {
+transform: scale(1.08);
+}
+.competency-spectrum-grid {
+display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px;
+  margin-bottom: 64px;
+}
+.competency-card {
+display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.event-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+  height: 100%;
+}
+
+.event-card .event-date-badge {
+  white-space: nowrap;
+}
+
+.event-card .card-title {
+  overflow-wrap: anywhere;
+}
+
+.competency-card .progress-bar {
+  width: 100%;
+}
+
+.page-events .alumni-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.event-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  background: rgba(129, 140, 248, 0.12);
+  color: var(--wwdc-indigo);
+  border: 1px solid rgba(129, 140, 248, 0.25);
+  border-radius: var(--radius-pill);
+}
+@media (max-width: 1024px) {
+.fest-hero-card {
+grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 28px;
+}
+
+.fest-hero-image-wrapper {
+  height: 280px;
+}
+
+}
+/* ==============================================================
+   Events page overrides
+   Dedicated tuning for highlight panels, timeline cards, and festival content.
+   ==============================================================
+*/
+
+.page-events {
+  --page-accent: rgba(248, 180, 60, 0.18);
+}
+
+.page-events .page-header {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .events-section .projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .event-card .card-header {
+    align-items: flex-start;
+  }
+}

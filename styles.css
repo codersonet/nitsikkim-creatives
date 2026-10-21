@@ -1,12 +1,6 @@
-/* ==========================================================================
-   NIT SIKKIM // THE OUTPOST
-   Futuristic WWDC-Inspired Spatial Design System
-   Crafted with Apple Human Interface & Emil Kowalski Design Engineering Principles
-   ========================================================================== */
-
+/* Shared tokens, foundations, navigation, reusable components, footer, and accessibility defaults. */
 :root {
-  /* Futuristic WWDC Spatial Palette */
-  --surface: #07080c;
+--surface: #07080c;
   --surface-dim: #050608;
   --surface-bright: #1c1e28;
   --surface-container-lowest: #030406;
@@ -15,14 +9,13 @@
   --surface-container-high: #1a1d2c;
   --surface-container-highest: #24283c;
 
-  /* Translucent Liquid Glass Materials */
-  --glass-bg: rgba(18, 20, 32, 0.62);
+--glass-bg: rgba(18, 20, 32, 0.62);
   --glass-bg-hover: rgba(26, 29, 46, 0.72);
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-border-hover: rgba(255, 255, 255, 0.28);
   --glass-specular: inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
 
-  /* Apple / WWDC Keynote Accents */
+
   --wwdc-cyan: #38bdf8;
   --wwdc-indigo: #818cf8;
   --wwdc-purple: #c084fc;
@@ -39,30 +32,26 @@
   --secondary: #d1d5db;
   --tertiary: #ffffff;
 
-  /* Motion & Easing Curves (WWDC Fluid Springs & Emil Curves) */
+
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
-  /* Typography */
+
   --font-heading: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'Space Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Spatial Geometry */
+
   --radius-sm: 6px;
   --radius-default: 10px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-pill: 9999px;
 
-  /* Layout Spacing */
+
   --gutter: 28px;
   --max-width: 1360px;
 }
-
-/* --------------------------------------------------------------------------
-   Global Reset & Base Foundations
-   -------------------------------------------------------------------------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -86,10 +75,10 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--surface);
-  background-image: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(129, 140, 248, 0.15), transparent 70%),
-    radial-gradient(ellipse 60% 40% at 100% 60%, rgba(56, 189, 248, 0.08), transparent 60%),
-    radial-gradient(ellipse 50% 30% at 0% 90%, rgba(192, 132, 252, 0.06), transparent 60%);
+  background-image:
+  radial-gradient(ellipse 80% 50% at 50% -20%, rgba(129, 140, 248, 0.15), transparent 70%),
+  radial-gradient(ellipse 60% 40% at 100% 60%, rgba(56, 189, 248, 0.08), transparent 60%),
+  radial-gradient(ellipse 50% 30% at 0% 90%, rgba(192, 132, 252, 0.06), transparent 60%);
   background-attachment: fixed;
 }
 
@@ -99,9 +88,6 @@ main {
   z-index: 1;
 }
 
-/* --------------------------------------------------------------------------
-   Dynamic Mountain & Ambient Spatial Canvas
-   -------------------------------------------------------------------------- */
 #mountain-canvas {
   position: fixed;
   top: 0;
@@ -114,9 +100,6 @@ main {
   transition: opacity 300ms ease;
 }
 
-/* --------------------------------------------------------------------------
-   Typography Hierarchy (Optical Sizing, Tracking & Tight Leading)
-   -------------------------------------------------------------------------- */
 .headline-xl {
   font-size: clamp(2.75rem, 7vw, 4.75rem);
   font-weight: 800;
@@ -149,7 +132,6 @@ main {
   font-weight: 500;
 }
 
-/* WWDC Glow & Text Accents */
 .text-glow {
   background: linear-gradient(135deg, #ffffff 20%, #e0e7ff 50%, var(--wwdc-cyan) 85%);
   -webkit-background-clip: text;
@@ -168,38 +150,34 @@ main {
   color: var(--primary);
 }
 
-/* --------------------------------------------------------------------------
-   Futuristic Glassmorphism & Specular Spotlight Cards
-   -------------------------------------------------------------------------- */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(32px) saturate(190%);
   -webkit-backdrop-filter: blur(32px) saturate(190%);
   border: 1px solid var(--glass-border);
-  box-shadow: 
-    0 16px 40px -12px rgba(0, 0, 0, 0.65),
-    var(--glass-specular);
+  box-shadow:
+  0 16px 40px -12px rgba(0, 0, 0, 0.65),
+  var(--glass-specular);
   border-radius: var(--radius-lg);
   padding: 32px;
   position: relative;
   overflow: hidden;
   transform: translateZ(0);
-  transition: 
-    transform 220ms var(--ease-spring),
-    border-color 220ms ease,
-    background-color 220ms ease,
-    box-shadow 220ms var(--ease-spring);
+  transition:
+  transform 220ms var(--ease-spring),
+  border-color 220ms ease,
+  background-color 220ms ease,
+  box-shadow 220ms var(--ease-spring);
 }
 
-/* Interactive Cursor Spotlight Glow (Updated via JS pointer tracking) */
 .glass-card::before {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 255, 255, 0.09),
-    transparent 50%
+  500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+  rgba(255, 255, 255, 0.09),
+  transparent 50%
   );
   opacity: 0;
   transition: opacity 300ms ease;
@@ -207,7 +185,6 @@ main {
   z-index: 1;
 }
 
-/* Specular Hairline Shimmer */
 .glass-card::after {
   content: '';
   position: absolute;
@@ -216,10 +193,10 @@ main {
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    115deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.08) 50%,
-    transparent 80%
+  115deg,
+  transparent 20%,
+  rgba(255, 255, 255, 0.08) 50%,
+  transparent 80%
   );
   pointer-events: none;
   transition: transform 600ms ease;
@@ -230,10 +207,10 @@ main {
     background-color: var(--glass-bg-hover);
     border-color: var(--glass-border-hover);
     transform: translateY(-4px);
-    box-shadow: 
-      0 24px 50px -12px rgba(0, 0, 0, 0.75),
-      0 0 30px -5px rgba(56, 189, 248, 0.15),
-      var(--glass-specular);
+    box-shadow:
+    0 24px 50px -12px rgba(0, 0, 0, 0.75),
+    0 0 30px -5px rgba(56, 189, 248, 0.15),
+    var(--glass-specular);
   }
 
   .glass-card:hover::before {
@@ -245,13 +222,11 @@ main {
   }
 }
 
-/* Instant Tactile Feedback on Card Press */
 .glass-card:active {
   transform: scale(0.985) translateY(-2px);
   transition: transform 100ms var(--ease-out);
 }
 
-/* Layout Grid Container */
 .grid-container {
   display: grid;
   gap: var(--gutter);
@@ -260,9 +235,6 @@ main {
   padding: 0 var(--gutter);
 }
 
-/* --------------------------------------------------------------------------
-   WWDC Floating Capsule Navbar (VisionOS Style)
-   -------------------------------------------------------------------------- */
 .navbar {
   position: sticky;
   top: 14px;
@@ -277,9 +249,9 @@ main {
   backdrop-filter: blur(28px) saturate(200%);
   -webkit-backdrop-filter: blur(28px) saturate(200%);
   border: 1px solid rgba(255, 255, 255, 0.13);
-  box-shadow: 
-    0 12px 32px -8px rgba(0, 0, 0, 0.6),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
+  box-shadow:
+  0 12px 32px -8px rgba(0, 0, 0, 0.6),
+  inset 0 1px 1px 0 rgba(255, 255, 255, 0.22);
   border-radius: var(--radius-pill);
   padding: 10px 24px;
   display: flex;
@@ -333,10 +305,10 @@ main {
   padding: 8px 16px;
   border-radius: var(--radius-pill);
   position: relative;
-  transition: 
-    color 160ms ease, 
-    background-color 160ms ease, 
-    transform 120ms var(--ease-spring);
+  transition:
+  color 160ms ease,
+  background-color 160ms ease,
+  transform 120ms var(--ease-spring);
 }
 
 .nav-link:active {
@@ -382,6 +354,7 @@ main {
     opacity: 1;
     box-shadow: 0 0 10px var(--wwdc-emerald);
   }
+
   50% {
     transform: scale(0.85);
     opacity: 0.6;
@@ -389,9 +362,6 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   Page Header Section
-   -------------------------------------------------------------------------- */
 .page-header {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -404,9 +374,6 @@ main {
   max-width: 660px;
 }
 
-/* --------------------------------------------------------------------------
-   Tactile WWDC Buttons (Instant 1:1 Response & Spring Dynamics)
-   -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -422,15 +389,14 @@ main {
   position: relative;
   overflow: hidden;
   transform: translateZ(0);
-  transition: 
-    transform 140ms var(--ease-spring),
-    box-shadow 160ms ease,
-    background-color 160ms ease,
-    border-color 160ms ease,
-    color 160ms ease;
+  transition:
+  transform 140ms var(--ease-spring),
+  box-shadow 160ms ease,
+  background-color 160ms ease,
+  border-color 160ms ease,
+  color 160ms ease;
 }
 
-/* Tactile Click Physics */
 .btn:active {
   transform: scale(0.96) !important;
   transition: transform 80ms var(--ease-out) !important;
@@ -441,16 +407,16 @@ main {
   color: var(--on-primary);
   border-color: rgba(255, 255, 255, 0.4);
   font-weight: 700;
-  box-shadow: 
-    0 4px 14px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow:
+  0 4px 14px rgba(0, 0, 0, 0.4),
+  inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn-primary:hover {
-    box-shadow: 
-      0 6px 24px rgba(255, 255, 255, 0.28),
-      0 0 20px rgba(56, 189, 248, 0.35);
+    box-shadow:
+    0 6px 24px rgba(255, 255, 255, 0.28),
+    0 0 20px rgba(56, 189, 248, 0.35);
     transform: translateY(-2px);
   }
 }
@@ -470,19 +436,6 @@ main {
     box-shadow: 0 0 16px rgba(255, 255, 255, 0.12);
     transform: translateY(-2px);
   }
-}
-
-/* --------------------------------------------------------------------------
-   Hero Section & Spatial Layout
-   -------------------------------------------------------------------------- */
-.hero-section {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 80px var(--gutter) 48px;
-  display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: 52px;
-  align-items: center;
 }
 
 .hud-badge {
@@ -506,654 +459,6 @@ main {
   box-shadow: 0 0 8px var(--wwdc-cyan);
 }
 
-.hero-description {
-  margin: 24px 0 36px;
-  max-width: 600px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-}
-
-/* --------------------------------------------------------------------------
-   Futuristic Topography HUD Widget (Alpine Radar Scanner)
-   -------------------------------------------------------------------------- */
-.terrain-hud {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: rgba(14, 16, 26, 0.7);
-  border-color: rgba(56, 189, 248, 0.18);
-}
-
-.hud-header,
-.hud-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.topography-graphic {
-  height: 140px;
-  border: 1px dashed rgba(255, 255, 255, 0.14);
-  border-radius: var(--radius-md);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: 
-    radial-gradient(circle at center, rgba(56, 189, 248, 0.08) 0%, transparent 75%),
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 20px 20px, 20px 20px;
-}
-
-/* Radar Laser Beam Sweep */
-.topography-graphic::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--wwdc-cyan), transparent);
-  box-shadow: 0 0 15px var(--wwdc-cyan);
-  animation: radar-scan 3s ease-in-out infinite alternate;
-}
-
-@keyframes radar-scan {
-  0% {
-    top: 5%;
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.9;
-  }
-  100% {
-    top: 92%;
-    opacity: 0.3;
-  }
-}
-
-.topo-line {
-  position: absolute;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  border-radius: 50%;
-  transition: transform 300ms ease;
-}
-
-.line-1 {
-  width: 90px;
-  height: 45px;
-  transform: rotate(-15deg);
-  border-color: rgba(56, 189, 248, 0.6);
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
-}
-
-.line-2 {
-  width: 150px;
-  height: 75px;
-  transform: rotate(-10deg);
-  border-color: rgba(129, 140, 248, 0.4);
-}
-
-.line-3 {
-  width: 230px;
-  height: 110px;
-  transform: rotate(-5deg);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.hud-val {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.05rem;
-  margin-top: 4px;
-  color: var(--primary);
-}
-
-/* --------------------------------------------------------------------------
-   Live Telemetry Stats Section
-   -------------------------------------------------------------------------- */
-.stats-section {
-  padding: 40px 0 70px;
-}
-
-.stats-grid {
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.stat-card .headline-lg {
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: var(--primary);
-  background: linear-gradient(180deg, #ffffff 40%, #9ca3af 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* --------------------------------------------------------------------------
-   Clubs, Projects, Alumni & Sections
-   -------------------------------------------------------------------------- */
-.clubs-section,
-.alumni-section,
-.companies-section,
-.metrics-detailed-section,
-.events-section {
-  padding: 40px 0 88px;
-}
-
-.section-header {
-  max-width: var(--max-width);
-  margin: 0 auto 36px;
-  padding: 0 var(--gutter);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-/* Interactive Category Filter Pills */
-.filter-bar {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--on-surface-variant);
-  padding: 8px 18px;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  transition: 
-    background-color 160ms ease,
-    border-color 160ms ease,
-    color 160ms ease,
-    transform 120ms var(--ease-spring),
-    box-shadow 160ms ease;
-}
-
-.filter-btn:active {
-  transform: scale(0.95);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .filter-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--primary);
-    border-color: rgba(255, 255, 255, 0.25);
-  }
-}
-
-.filter-btn.active {
-  background: var(--primary);
-  color: var(--on-primary);
-  border-color: var(--primary);
-  font-weight: 700;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
-}
-
-.projects-grid {
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-}
-
-.project-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.card-title {
-  font-size: 1.45rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  letter-spacing: -0.015em;
-}
-
-.progress-container {
-  margin: 24px 0 16px;
-}
-
-.progress-bar {
-  height: 5px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  margin-top: 8px;
-  position: relative;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--wwdc-indigo), var(--wwdc-cyan));
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
-  border-radius: var(--radius-pill);
-  transition: width 600ms var(--ease-spring);
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* --------------------------------------------------------------------------
-   Alumni Directory Cards
-   -------------------------------------------------------------------------- */
-.alumni-grid {
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-}
-
-.alumni-card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.alumni-badge {
-  display: inline-block;
-  align-self: flex-start;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  background: rgba(56, 189, 248, 0.12);
-  color: var(--wwdc-cyan);
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  letter-spacing: 0.08em;
-}
-
-.alumni-name {
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
-
-.alumni-tags {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: auto;
-  flex-wrap: wrap;
-}
-
-.chip {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  color: var(--on-surface-variant);
-}
-
-.chip-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  padding: 5px 14px;
-  border-radius: var(--radius-pill);
-  color: var(--primary);
-  text-decoration: none;
-  cursor: pointer;
-  margin-left: auto;
-  transition: 
-    transform 140ms var(--ease-spring),
-    background-color 160ms ease,
-    border-color 160ms ease,
-    box-shadow 160ms ease;
-}
-
-.chip-btn:active {
-  transform: scale(0.95);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .chip-btn:hover {
-    background: var(--primary);
-    color: var(--on-primary);
-    border-color: var(--primary);
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Infinite Partner Marquee (Hardware-Accelerated Composite Path)
-   -------------------------------------------------------------------------- */
-.marquee-wrapper {
-  width: 100%;
-  overflow: hidden;
-  padding: 44px 0;
-  position: relative;
-  background: rgba(10, 12, 18, 0.5);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin: 48px 0;
-  mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
-}
-
-.marquee-track {
-  display: flex;
-  align-items: center;
-  gap: 48px;
-  width: max-content;
-  will-change: transform;
-  animation: marquee-slide 60s linear infinite;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .marquee-track:hover {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes marquee-slide {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-.company-badge {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px 30px;
-  background: rgba(22, 25, 38, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: 
-    transform 160ms var(--ease-spring),
-    border-color 160ms ease,
-    background-color 160ms ease,
-    box-shadow 160ms ease;
-}
-
-.company-badge:active {
-  transform: scale(0.96);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .company-badge:hover {
-    border-color: rgba(255, 255, 255, 0.35);
-    background: rgba(30, 34, 52, 0.85);
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
-    transform: translateY(-2px);
-  }
-}
-
-.company-logo-svg {
-  width: 28px;
-  height: 28px;
-  fill: var(--on-surface-variant);
-  transition: fill 160ms ease, filter 160ms ease;
-}
-
-.company-badge:hover .company-logo-svg {
-  fill: var(--primary);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
-}
-
-.company-name {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  color: var(--on-surface);
-}
-
-/* --------------------------------------------------------------------------
-   Futuristic WWDC Modal Dialog (Spring Physics & Spatial Backdrop)
-   -------------------------------------------------------------------------- */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(4, 5, 8, 0.82);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 220ms var(--ease-out);
-}
-
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal-content {
-  max-width: 620px;
-  width: 90%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  background: rgba(18, 22, 36, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 
-    0 32px 80px -16px rgba(0, 0, 0, 0.85),
-    0 0 40px -10px rgba(56, 189, 248, 0.25),
-    var(--glass-specular);
-  transform: scale(0.95) translateY(8px);
-  opacity: 0;
-  transition: 
-    transform 280ms var(--ease-spring),
-    opacity 240ms ease-out;
-}
-
-.modal-overlay.active .modal-content {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-}
-
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-  color: var(--primary);
-  font-size: 1.4rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: 
-    background-color 160ms ease,
-    transform 120ms var(--ease-spring);
-}
-
-.modal-close:active {
-  transform: scale(0.9);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .modal-close:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.08);
-  }
-}
-
-.modal-metrics {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin: 16px 0;
-  padding: 18px;
-  background: rgba(10, 12, 20, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
-}
-
-/* --------------------------------------------------------------------------
-   Futuristic WWDC Events Grid
-   -------------------------------------------------------------------------- */
-.fest-hero-card {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 40px;
-  align-items: center;
-  padding: 36px;
-  margin-bottom: 56px;
-  border-color: rgba(56, 189, 248, 0.28);
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.8), 0 0 35px -5px rgba(56, 189, 248, 0.15), var(--glass-specular);
-}
-
-.fest-hero-image-wrapper {
-  position: relative;
-  height: 380px;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.fest-hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 600ms var(--ease-spring);
-}
-
-.fest-hero-card:hover .fest-hero-image {
-  transform: scale(1.04);
-}
-
-.fest-hero-badge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(7, 8, 12, 0.85);
-  backdrop-filter: blur(16px);
-  padding: 7px 16px;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(56, 189, 248, 0.45);
-  color: var(--wwdc-cyan);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 2;
-}
-
-.fests-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-bottom: 64px;
-}
-
-.fest-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.fest-card-image {
-  height: 180px;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.fest-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 500ms var(--ease-spring);
-}
-
-.fest-card:hover .fest-card-image img {
-  transform: scale(1.08);
-}
-
-.competency-spectrum-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 24px;
-  margin-bottom: 64px;
-}
-
-.competency-card {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.event-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.event-date-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 4px 12px;
-  background: rgba(129, 140, 248, 0.12);
-  color: var(--wwdc-indigo);
-  border: 1px solid rgba(129, 140, 248, 0.25);
-  border-radius: var(--radius-pill);
-}
-
-/* --------------------------------------------------------------------------
-   Global Futuristic Footer
-   -------------------------------------------------------------------------- */
 .footer {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 72px 0 36px;
@@ -1261,10 +566,10 @@ main {
   font-size: 0.78rem;
   cursor: pointer;
   border-radius: var(--radius-pill);
-  transition: 
-    transform 140ms var(--ease-spring),
-    box-shadow 160ms ease,
-    background-color 160ms ease;
+  transition:
+  transform 140ms var(--ease-spring),
+  box-shadow 160ms ease,
+  background-color 160ms ease;
 }
 
 .hud-submit:active {
@@ -1296,12 +601,12 @@ main {
   border-radius: 50%;
   color: var(--on-surface-variant);
   font-size: 1.25rem;
-  transition: 
-    transform 140ms var(--ease-spring),
-    background-color 160ms ease,
-    border-color 160ms ease,
-    color 160ms ease,
-    box-shadow 160ms ease;
+  transition:
+  transform 140ms var(--ease-spring),
+  background-color 160ms ease,
+  border-color 160ms ease,
+  color 160ms ease,
+  box-shadow 160ms ease;
 }
 
 .social-icon:active {
@@ -1330,289 +635,11 @@ main {
   opacity: 0.75;
 }
 
-/* --------------------------------------------------------------------------
-   Futuristic Contact Terminal & Technical Skills Uplink
-   -------------------------------------------------------------------------- */
-.contact-section {
-  padding: 20px 0 80px;
-}
-
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: 40px;
-  align-items: start;
-}
-
-/* Left Column: Info & Social Nodes */
-.contact-info-col {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.social-nodes-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-
-.social-node-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 20px 12px;
-  text-decoration: none;
-  color: var(--on-surface-variant);
-  background: rgba(18, 22, 36, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(20px);
-  transition: transform 140ms var(--ease-spring), border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
-}
-
-.social-node-card i {
-  font-size: 1.5rem;
-  transition: transform 140ms var(--ease-spring), color 160ms ease;
-}
-
-.social-node-card:active {
-  transform: scale(0.95);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .social-node-card:hover {
-    color: var(--primary);
-    border-color: var(--wwdc-cyan);
-    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
-    transform: translateY(-3px);
-  }
-  .social-node-card:hover i {
-    transform: scale(1.15);
-    color: var(--wwdc-cyan);
-  }
-}
-
-.contact-status-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 24px;
-  border-left: 3px solid var(--wwdc-cyan);
-}
-
-/* Skills Matrix Selector */
-.skills-matrix-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.skills-matrix {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.skill-tag {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--on-surface-variant);
-  cursor: pointer;
-  user-select: none;
-  transition: transform 120ms var(--ease-spring), background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
-}
-
-.skill-tag:active {
-  transform: scale(0.94);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .skill-tag:hover {
-    color: var(--primary);
-    border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.1);
-  }
-}
-
-.skill-tag.selected {
-  background: rgba(56, 189, 248, 0.15);
-  border-color: var(--wwdc-cyan);
-  color: var(--wwdc-cyan);
-  font-weight: 700;
-  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
-}
-
-/* Terminal Window */
-.terminal-window {
-  border-radius: var(--radius-lg);
-  padding: 0;
-  overflow: hidden;
-  background: rgba(12, 14, 24, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.85), var(--glass-specular);
-}
-
-.terminal-bar {
-  background: rgba(255, 255, 255, 0.04);
-  padding: 14px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.term-dots {
-  display: flex;
-  gap: 8px;
-}
-
-.term-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.term-dot.red { background: rgba(239, 68, 68, 0.7); }
-.term-dot.yellow { background: rgba(234, 179, 8, 0.7); }
-.term-dot.green { background: rgba(34, 197, 94, 0.7); }
-
-.terminal-scanline {
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--wwdc-cyan), transparent);
-  box-shadow: 0 0 10px var(--wwdc-cyan);
-  animation: radar-scan 4s ease-in-out infinite alternate;
-}
-
-.terminal-body {
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.terminal-prompt-box {
-  background: rgba(5, 7, 12, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-sm);
-  padding: 14px 18px;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  line-height: 1.6;
-  color: var(--wwdc-cyan);
-}
-
-.terminal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.terminal-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.terminal-field label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--on-surface-variant);
-  text-transform: uppercase;
-}
-
-.terminal-input,
-.terminal-select,
-.terminal-textarea {
-  width: 100%;
-  background: rgba(18, 22, 34, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm);
-  color: var(--primary);
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  padding: 14px 16px;
-  outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
-}
-
-.terminal-input:focus,
-.terminal-select:focus,
-.terminal-textarea:focus {
-  border-color: var(--wwdc-cyan);
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
-  background: rgba(24, 28, 44, 0.9);
-}
-
-.terminal-telemetry {
-  margin-top: 8px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px 16px;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--outline);
-}
-
-/* Visual Showcase Preview Cards */
-.visual-showcase-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 60px;
-}
-
-.visual-preview-card {
-  height: 220px;
-  position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding: 24px;
-}
-
-.visual-preview-card .card-bg-img {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.45;
-  transition: transform 600ms ease, opacity 300ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .visual-preview-card:hover .card-bg-img {
-    transform: scale(1.06);
-    opacity: 0.7;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Accessibility & Hardware Fallbacks
-   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition-property: color, background-color, border-color, fill, opacity !important;
+    transition-duration: 120ms !important;
     scroll-behavior: auto !important;
   }
 
@@ -1620,56 +647,12 @@ main {
     transform: none !important;
   }
 
-  .marquee-track {
-    animation: none !important;
-    overflow-x: auto;
-  }
-
   #mountain-canvas {
     display: none;
   }
 }
 
-@media (prefers-reduced-transparency: reduce) {
-  .glass-card,
-  .nav-container,
-  .modal-content,
-  .footer {
-    background: #0d0f17 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Responsive Adaptations
-   -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .hero-section {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: 56px;
-  }
-
-  .fest-hero-card {
-    grid-template-columns: 1fr;
-    padding: 24px;
-    gap: 28px;
-  }
-
-  .fest-hero-image-wrapper {
-    height: 280px;
-  }
-
-  .contact-layout {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .visual-showcase-grid {
-    grid-template-columns: 1fr;
-  }
-
   .footer-container {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -1715,18 +698,8 @@ main {
     padding: 40px var(--gutter) 24px;
   }
 
-  .hero-section {
-    padding: 40px var(--gutter) 28px;
-  }
-
   .glass-card {
     padding: 22px;
-  }
-
-  .projects-grid,
-  .alumni-grid,
-  .stats-grid {
-    grid-template-columns: 1fr;
   }
 
   .footer-container {
@@ -1738,31 +711,11 @@ main {
     flex-direction: column;
     gap: 12px;
   }
-
-  .modal-metrics {
-    grid-template-columns: 1fr;
-  }
-
-  .social-nodes-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .form-group-row {
-    grid-template-columns: 1fr;
-  }
-
-  .terminal-body {
-    padding: 22px 18px;
-  }
 }
 
 @media (max-width: 520px) {
   .footer-links-grid {
     gap: 10px 16px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
   }
 
   .btn {
@@ -1775,5 +728,32 @@ main {
 
   .hud-submit {
     width: 100%;
+  }
+}
+
+@keyframes radar-scan {
+  0% {
+    top: 5%;
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+
+  100% {
+    top: 92%;
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-card,
+  .nav-container,
+  .modal-content,
+  .footer {
+    background: #0d0f17 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }

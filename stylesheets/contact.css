@@ -1,0 +1,323 @@
+/* Contact page styles: skills selector, terminal form, and showcase. */
+.contact-section {
+padding: 20px 0 80px;
+}
+.contact-layout {
+display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 40px;
+  align-items: start;
+}
+.page-contact .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.contact-info-col {
+display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.social-nodes-grid {
+display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.social-node-card {
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 12px;
+  text-decoration: none;
+  color: var(--on-surface-variant);
+  background: rgba(18, 22, 36, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(20px);
+  transition: transform 140ms var(--ease-spring), border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+.social-node-card i {
+font-size: 1.5rem;
+  transition: transform 140ms var(--ease-spring), color 160ms ease;
+}
+.social-node-card:active {
+transform: scale(0.95);
+}
+@media (hover: hover) and (pointer: fine) {
+.social-node-card:hover {
+color: var(--primary);
+    border-color: var(--wwdc-cyan);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    transform: translateY(-3px);
+}
+
+.social-node-card:hover i {
+  transform: scale(1.15);
+  color: var(--wwdc-cyan);
+}
+
+}
+.contact-status-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  border-left: 3px solid var(--wwdc-cyan);
+}
+
+.skills-matrix-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skills-matrix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 120ms var(--ease-spring), background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.skill-tag:active {
+  transform: scale(0.94);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill-tag:hover {
+    color: var(--primary);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.skill-tag.selected {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: var(--wwdc-cyan);
+  color: var(--wwdc-cyan);
+  font-weight: 700;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.3);
+}
+
+.terminal-window {
+  border-radius: var(--radius-lg);
+  padding: 0;
+  overflow: hidden;
+  background: rgba(12, 14, 24, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.85), var(--glass-specular);
+}
+
+.terminal-bar {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.term-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.term-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.term-dot.red {
+  background: rgba(239, 68, 68, 0.7);
+}
+
+.term-dot.yellow {
+  background: rgba(234, 179, 8, 0.7);
+}
+
+.term-dot.green {
+  background: rgba(34, 197, 94, 0.7);
+}
+
+.terminal-scanline {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--wwdc-cyan), transparent);
+  box-shadow: 0 0 10px var(--wwdc-cyan);
+  animation: radar-scan 4s ease-in-out infinite alternate;
+}
+
+.terminal-body {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.terminal-prompt-box {
+  background: rgba(5, 7, 12, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--wwdc-cyan);
+}
+
+.terminal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.terminal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.terminal-field label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+}
+
+.terminal-input,
+.terminal-select,
+.terminal-textarea {
+  width: 100%;
+  background: rgba(18, 22, 34, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  color: var(--primary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.terminal-input:focus,
+.terminal-select:focus,
+.terminal-textarea:focus {
+  border-color: var(--wwdc-cyan);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+  background: rgba(24, 28, 44, 0.9);
+}
+
+.terminal-telemetry {
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--outline);
+}
+
+.visual-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 60px;
+}
+
+.visual-preview-card {
+  height: 220px;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+.visual-preview-card .card-bg-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.45;
+  transition: transform 600ms ease, opacity 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .visual-preview-card:hover .card-bg-img {
+    transform: scale(1.06);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .visual-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .social-nodes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-group-row {
+    grid-template-columns: 1fr;
+  }
+
+  .terminal-body {
+    padding: 22px 18px;
+  }
+}
+
+/* ==============================================================
+   Contact page overrides
+   Utilities for the terminal contact form and social communication cards.
+   ==============================================================
+*/
+
+.page-contact {
+  --page-accent: rgba(52, 211, 153, 0.18);
+}
+
+.page-contact .page-header {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.page-contact .terminal-panel,
+.page-contact .social-node-card,
+.page-contact .glass-card {
+  border-color: rgba(52, 211, 153, 0.2);
+}

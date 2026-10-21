@@ -1,16 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+  Alumni directory page.
+  Maintain alumni entries in this page's content and preserve the shared
+  navigation/footer structure used across the static site.
+-->
 <head>
+  <!-- Resolve shared assets and site routes from the repository root. -->
+  <base href="../">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Keep canonical and social URLs aligned with the deployed file path. -->
   <title>ALUMNI DIRECTORY // NIT SIKKIM</title>
+  <meta name="description" content="Explore the NIT Sikkim alumni directory and discover graduates contributing across research, technology, startups, and public service.">
+  <meta name="author" content="NIT Sikkim Creative Park">
+  <meta name="theme-color" content="#07080c">
+  <meta name="application-name" content="NIT Sikkim Creative Park">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NIT Sikkim Creative Park">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="canonical" href="https://codersonet.github.io/nitsikkim-creatives/pages/alumni.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="mask-icon" href="favicon.svg" color="#e4e2e0">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NIT Sikkim Creative Park">
+  <meta property="og:title" content="Alumni Directory | NIT Sikkim Creative Park">
+  <meta property="og:description" content="Explore the NIT Sikkim alumni directory and discover graduates working across sectors.">
+  <meta property="og:url" content="https://codersonet.github.io/nitsikkim-creatives/pages/alumni.html">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:image" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
+  <meta property="og:image:secure_url" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NIT Sikkim Creative Park: clubs, projects, alumni, and events">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alumni Directory | NIT Sikkim Creative Park">
+  <meta name="twitter:description" content="Explore the NIT Sikkim alumni directory and discover graduates working across sectors.">
+  <meta name="twitter:image" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
+  <meta name="twitter:image:alt" content="NIT Sikkim Creative Park: clubs, projects, alumni, and events">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stylesheets/alumni.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="page-alumni">
 
   <canvas id="mountain-canvas"></canvas>
 
@@ -23,10 +64,10 @@
       
       <nav class="nav-links">
         <a href="index.html" class="nav-link">OVERVIEW</a>
-        <a href="clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
-        <a href="alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
-        <a href="metrics.html" class="nav-link">METRICS</a>
-        <a href="events.html" class="nav-link">EVENTS</a>
+        <a href="pages/clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
+        <a href="pages/alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
+        <a href="pages/metrics.html" class="nav-link">METRICS</a>
+        <a href="pages/events.html" class="nav-link">EVENTS</a>
       </nav>
 
       <div class="nav-status">

@@ -1,0 +1,118 @@
+/* Alumni page styles. */
+
+/* Alumni directory page styles. */
+.alumni-section {
+  padding: 40px 0 88px;
+}
+
+.alumni-grid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+.alumni-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.alumni-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--wwdc-cyan);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  letter-spacing: 0.08em;
+}
+
+.alumni-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.alumni-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  color: var(--on-surface-variant);
+}
+
+.chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  color: var(--primary);
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: auto;
+  transition:
+  transform 140ms var(--ease-spring),
+  background-color 160ms ease,
+  border-color 160ms ease,
+  box-shadow 160ms ease;
+}
+
+.chip-btn:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .chip-btn:hover {
+    background: var(--primary);
+    color: var(--on-primary);
+    border-color: var(--primary);
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+/* ==============================================================
+   Alumni page overrides
+   Keeps alumni-specific styling separate from the global shared system.
+   ==============================================================
+*/
+
+.page-alumni {
+  --page-accent: rgba(192, 132, 252, 0.18);
+}
+
+.page-alumni .page-header {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.page-alumni .glass-card {
+  border-color: rgba(192, 132, 252, 0.22);
+}
+
+.page-alumni .chip-btn {
+  border-color: rgba(192, 132, 252, 0.28);
+}
+
+@media (max-width: 768px) {
+  .alumni-grid {
+    grid-template-columns: 1fr;
+  }
+}

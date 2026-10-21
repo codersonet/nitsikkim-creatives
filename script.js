@@ -2,9 +2,17 @@
  * NIT SIKKIM // THE OUTPOST
  * Spatial Interactive Logic & Dynamic Canvas Background
  * Built with WWDC Fluid Motion & Emil Kowalski Design Engineering Principles
+ *
+ * Shared page behavior: canvas backdrop, navigation state, card effects,
+ * project rendering/filtering, statistics, modal, footer, and marquee.
+ * Page-specific features are guarded so this script can be loaded by every
+ * static HTML page without requiring every page to contain every component.
  */
 
-// Global Club Projects Dataset
+const motionPreferenceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const projectRevealTimers = new Set();
+
+// Source data for the clubs page; categories must match its filter buttons.
 const clubProjects = [
   {
     id: 1,
@@ -69,12 +77,13 @@ const clubProjects = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize shared effects once the page markup is available.
   initMountainCanvas();
   highlightActiveNavLink();
   initCardSpotlightAndTilt();
   
   if (document.getElementById("projects-container")) {
-    renderProjects(clubProjects);
+    renderProjects(clubProjects, { initialEntrance: true });
     initFilters();
   }
   
@@ -89,11 +98,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* Highlight current active page link */
 function highlightActiveNavLink() {
-  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  // Resolve links against <base> where present so root and nested pages compare
+  // the same canonical path even when their hrefs include a folder prefix.
+  const currentPath = window.location.pathname.endsWith("/")
+    ? `${window.location.pathname}index.html`
+    : window.location.pathname;
   const navLinks = document.querySelectorAll(".nav-link");
   
   navLinks.forEach((link) => {
-    const linkPath = link.getAttribute("href");
+    const linkPath = new URL(link.getAttribute("href"), document.baseURI).pathname;
     if (linkPath === currentPath) {
       link.classList.add("active");
     } else {
@@ -106,6 +119,8 @@ function highlightActiveNavLink() {
    Interactive Dynamic Mountain & WWDC Aurora Spatial Canvas
    -------------------------------------------------------------------------- */
 function initMountainCanvas() {
+  // Draw the ambient background on a fixed canvas and pause its rendering when
+  // the tab is hidden so background animation does not waste CPU time.
   const canvas = document.getElementById("mountain-canvas");
   if (!canvas) return;
 
@@ -113,7 +128,7 @@ function initMountainCanvas() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let width = window.innerWidth;
   let height = window.innerHeight;
-  let isPageVisible = true;
+  let animationFrameId = null;
 
   // Pointer position with spring inertia
   let mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
@@ -141,10 +156,6 @@ function initMountainCanvas() {
     mouse.targetY = -1000;
   });
 
-  document.addEventListener("visibilitychange", () => {
-    isPageVisible = !document.hidden;
-  });
-
   // Stardust / Spatial Nodes with High-Definition Sharp Twinkling
   const particleCount = Math.min(width > 768 ? 85 : 40, 110);
   const starColors = [
@@ -170,10 +181,8 @@ function initMountainCanvas() {
   let offset = 0;
 
   function draw() {
-    if (!isPageVisible) {
-      requestAnimationFrame(draw);
-      return;
-    }
+    animationFrameId = null;
+    if (document.hidden || motionPreferenceQuery.matches) return;
 
     ctx.clearRect(0, 0, width, height);
 
@@ -258,16 +267,37 @@ function initMountainCanvas() {
     });
 
     offset += 1;
-    requestAnimationFrame(draw);
+    scheduleDraw();
   }
 
-  draw();
+  function scheduleDraw() {
+    if (animationFrameId !== null || document.hidden || motionPreferenceQuery.matches) return;
+    animationFrameId = requestAnimationFrame(draw);
+  }
+
+  function updateCanvasAnimation() {
+    if (document.hidden || motionPreferenceQuery.matches) {
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      return;
+    }
+
+    scheduleDraw();
+  }
+
+  document.addEventListener("visibilitychange", updateCanvasAnimation);
+  motionPreferenceQuery.addEventListener("change", updateCanvasAnimation);
+  updateCanvasAnimation();
 }
 
 /* --------------------------------------------------------------------------
    Dynamic Card Spotlight & 3D Tilt (WWDC Spatial Feedback)
    -------------------------------------------------------------------------- */
 function initCardSpotlightAndTilt() {
+  // Attach pointer-driven lighting/tilt effects to cards, including cards
+  // inserted later by project rendering or filtering.
   // Check if touch device - avoid tilt on touch to maintain fast native scrolling
   const isFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
@@ -284,7 +314,7 @@ function initCardSpotlightAndTilt() {
       card.style.setProperty("--mouse-x", `${x}px`);
       card.style.setProperty("--mouse-y", `${y}px`);
 
-      if (isFinePointer) {
+      if (isFinePointer && !motionPreferenceQuery.matches) {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         const rotateX = ((y - centerY) / centerY) * -3;
@@ -303,6 +333,14 @@ function initCardSpotlightAndTilt() {
 
   document.querySelectorAll(".glass-card").forEach(attachToCard);
 
+  motionPreferenceQuery.addEventListener("change", (event) => {
+    if (event.matches) {
+      document.querySelectorAll(".glass-card").forEach((card) => {
+        card.style.transform = "";
+      });
+    }
+  });
+
   // MutationObserver to attach to newly injected cards (e.g. project filters)
   const observer = new MutationObserver(() => {
     document.querySelectorAll(".glass-card").forEach(attachToCard);
@@ -310,21 +348,40 @@ function initCardSpotlightAndTilt() {
   observer.observe(document.body, { childList: true, subtree: true });
 }
 
+function finishProjectReveal() {
+  projectRevealTimers.forEach((timerId) => clearTimeout(timerId));
+  projectRevealTimers.clear();
+  document.querySelectorAll("#projects-container .project-card").forEach((card) => {
+    card.style.opacity = "1";
+    card.style.transform = "";
+  });
+}
+
 /* --------------------------------------------------------------------------
    Render Projects Cards with Fluid Staggered Entrance
    -------------------------------------------------------------------------- */
-function renderProjects(projects) {
+function renderProjects(projects, { initialEntrance = false } = {}) {
+  // Rebuild the clubs grid from data so the initial view and filtered views
+  // share one rendering path.
   const container = document.getElementById("projects-container");
   if (!container) return;
 
+  projectRevealTimers.forEach((timerId) => clearTimeout(timerId));
+  projectRevealTimers.clear();
   container.innerHTML = "";
+  const shouldAnimate = initialEntrance && !motionPreferenceQuery.matches;
 
   projects.forEach((item, index) => {
     const card = document.createElement("div");
     card.className = "glass-card project-card";
-    card.style.opacity = "0";
-    card.style.transform = "translateY(16px)";
-    card.style.transition = "transform 360ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease-out";
+    if (shouldAnimate) {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(8px)";
+      card.style.transition = "transform 180ms var(--ease-out), opacity 180ms var(--ease-out)";
+    } else {
+      card.style.opacity = "1";
+      card.style.transform = "";
+    }
 
     card.innerHTML = `
       <div>
@@ -355,11 +412,19 @@ function renderProjects(projects) {
     `;
     container.appendChild(card);
 
-    // Stagger animation entry
-    setTimeout(() => {
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }, 40 * index);
+    if (shouldAnimate) {
+      const timerId = setTimeout(() => {
+        projectRevealTimers.delete(timerId);
+        if (motionPreferenceQuery.matches) {
+          finishProjectReveal();
+          return;
+        }
+
+        card.style.opacity = "1";
+        card.style.transform = "";
+      }, Math.min(index * 16, 80));
+      projectRevealTimers.add(timerId);
+    }
   });
 }
 
@@ -367,7 +432,13 @@ function renderProjects(projects) {
    Filter Logic with Instant Active State & Transition
    -------------------------------------------------------------------------- */
 function initFilters() {
+  // Reflect the chosen category on the controls, then render only matching
+  // project data; the "all" option restores the complete dataset.
   const filterBtns = document.querySelectorAll(".filter-btn");
+
+  motionPreferenceQuery.addEventListener("change", (event) => {
+    if (event.matches) finishProjectReveal();
+  });
 
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -378,10 +449,10 @@ function initFilters() {
 
       const category = btn.dataset.filter;
       if (category === "all") {
-        renderProjects(clubProjects);
+        renderProjects(clubProjects, { initialEntrance: false });
       } else {
         const filtered = clubProjects.filter((p) => p.category === category);
-        renderProjects(filtered);
+        renderProjects(filtered, { initialEntrance: false });
       }
     });
   });
@@ -391,17 +462,37 @@ function initFilters() {
    WWDC Keynote Stats Counter Animation (Exponential Ease-Out Curve)
    -------------------------------------------------------------------------- */
 function initStatsCounter() {
+  // Animate numeric indicators when their page elements become visible.
   const counters = document.querySelectorAll(".count-up");
+  const activeCounters = new Map();
+
+  function setCounterToTarget(el) {
+    const target = +el.getAttribute("data-target");
+    el.innerText = target >= 1000 ? target.toLocaleString() : target;
+  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const el = entry.target;
         const target = +el.getAttribute("data-target");
+        if (motionPreferenceQuery.matches) {
+          setCounterToTarget(el);
+          observer.unobserve(el);
+          return;
+        }
+
         const duration = 1400; // ms
         const startTime = performance.now();
 
         function updateCounter(currentTime) {
+          if (motionPreferenceQuery.matches) {
+            activeCounters.delete(el);
+            setCounterToTarget(el);
+            observer.unobserve(el);
+            return;
+          }
+
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
           // Strong exponential ease-out curve
@@ -411,17 +502,32 @@ function initStatsCounter() {
           el.innerText = target >= 1000 ? currentCount.toLocaleString() : currentCount;
 
           if (progress < 1) {
-            requestAnimationFrame(updateCounter);
+            activeCounters.set(el, requestAnimationFrame(updateCounter));
           } else {
             el.innerText = target >= 1000 ? target.toLocaleString() : target;
+            activeCounters.delete(el);
           }
         }
 
-        requestAnimationFrame(updateCounter);
+        activeCounters.set(el, requestAnimationFrame(updateCounter));
         observer.unobserve(el);
       }
     });
   }, { threshold: 0.25 });
+
+  motionPreferenceQuery.addEventListener("change", (event) => {
+    if (!event.matches) return;
+
+    activeCounters.forEach((frameId, el) => {
+      cancelAnimationFrame(frameId);
+      setCounterToTarget(el);
+    });
+    activeCounters.clear();
+    counters.forEach((counter) => {
+      setCounterToTarget(counter);
+      observer.unobserve(counter);
+    });
+  });
 
   counters.forEach((counter) => observer.observe(counter));
 }
@@ -430,6 +536,7 @@ function initStatsCounter() {
    Modal Window Logic (Keyboard Escape & Asymmetric Interruptible Motion)
    -------------------------------------------------------------------------- */
 function initModal() {
+  // Connect project-detail controls to the shared project data and modal UI.
   const modal = document.getElementById("project-modal");
   const closeBtn = document.getElementById("modal-close");
   const container = document.getElementById("projects-container");
@@ -489,6 +596,8 @@ function initModal() {
    Infinite Marquee Duplication Helper
    -------------------------------------------------------------------------- */
 function initInfiniteMarquee() {
+  // Duplicate marquee content only when the page includes a marquee region,
+  // allowing the animation to loop without gaps.
   const track = document.querySelector(".marquee-track");
   if (track && track.children.length > 0 && !track._isCloned) {
     track._isCloned = true;
@@ -500,6 +609,7 @@ function initInfiniteMarquee() {
    Global Futuristic Footer Injector
    -------------------------------------------------------------------------- */
 function loadGlobalFooter() {
+  // Insert the shared footer into pages that provide the footer container.
   const footerContainer = document.getElementById("footer-container");
   if (!footerContainer || footerContainer._isLoaded) return;
   footerContainer._isLoaded = true;
@@ -523,17 +633,17 @@ function loadGlobalFooter() {
           <div class="footer-links-grid">
             <div class="footer-links-col">
               <a href="index.html" class="footer-link">OVERVIEW</a>
-              <a href="clubs.html" class="footer-link">CLUBS & PROJECTS</a>
-              <a href="alumni.html" class="footer-link">ALUMNI DIRECTORY</a>
-              <a href="metrics.html" class="footer-link">CAMPUS METRICS</a>
-              <a href="events.html" class="footer-link">EVENTS & KEYNOTES</a>
+              <a href="pages/clubs.html" class="footer-link">CLUBS & PROJECTS</a>
+              <a href="pages/alumni.html" class="footer-link">ALUMNI DIRECTORY</a>
+              <a href="pages/metrics.html" class="footer-link">CAMPUS METRICS</a>
+              <a href="pages/events.html" class="footer-link">EVENTS & KEYNOTES</a>
             </div>
             <div class="footer-links-col">
-              <a href="companies.html" class="footer-link">RECRUITER LOGS</a>
-              <a href="clubs.html" class="footer-link">INNOVATION LABS</a>
-              <a href="metrics.html" class="footer-link">RESEARCH PAPERS</a>
-              <a href="events.html" class="footer-link">TECH CONCLAVES</a>
-              <a href="/pages/contact.html" class="footer-link">CONTACT UPLINK</a>
+              <a href="pages/companies.html" class="footer-link">RECRUITER LOGS</a>
+              <a href="pages/clubs.html" class="footer-link">INNOVATION LABS</a>
+              <a href="pages/metrics.html" class="footer-link">RESEARCH PAPERS</a>
+              <a href="pages/events.html" class="footer-link">TECH CONCLAVES</a>
+              <a href="pages/contact.html" class="footer-link">CONTACT UPLINK</a>
             </div>
           </div>
         </div>

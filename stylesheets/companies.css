@@ -1,0 +1,119 @@
+/* Recruitment partners page styles and marquee. */
+.companies-section {
+  padding: 40px 0 88px;
+}
+
+.marquee-wrapper {
+width: 100%;
+  overflow: hidden;
+  padding: 44px 0;
+  position: relative;
+  background: rgba(10, 12, 18, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 48px 0;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 15%, #000 85%, transparent 100%);
+}
+.marquee-track {
+display: flex;
+  align-items: center;
+  gap: 48px;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-slide 60s linear infinite;
+}
+@media (hover: hover) and (pointer: fine) {
+.marquee-track:hover {
+animation-play-state: paused;
+}
+
+}
+@keyframes marquee-slide {
+  0% {
+  transform: translate3d(0, 0, 0);
+  }
+  100% {
+  transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.company-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 30px;
+  background: rgba(22, 25, 38, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+  transform 160ms var(--ease-spring),
+  border-color 160ms ease,
+  background-color 160ms ease,
+  box-shadow 160ms ease;
+}
+
+.company-badge:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .company-badge:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(30, 34, 52, 0.85);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
+    transform: translateY(-2px);
+  }
+}
+
+.company-logo-svg {
+  width: 28px;
+  height: 28px;
+  fill: var(--on-surface-variant);
+  transition: fill 160ms ease, filter 160ms ease;
+}
+
+.company-badge:hover .company-logo-svg {
+  fill: var(--primary);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+.company-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--on-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    overflow-x: auto;
+  }
+}
+
+/* ==============================================================
+   Companies page overrides
+   Separate page styling for recruitment partner cards and listings.
+   ==============================================================
+*/
+
+.page-companies {
+  --page-accent: rgba(52, 211, 153, 0.18);
+}
+
+.page-companies .page-header {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.page-companies .company-card,
+.page-companies .glass-card {
+  border-color: rgba(52, 211, 153, 0.22);
+}

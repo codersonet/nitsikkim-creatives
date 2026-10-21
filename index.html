@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+  Landing page for the NIT Sikkim Creative Park.
+  Keep the global navigation aligned with the other top-level pages; shared
+  interactions and the footer are initialized by script.js.
+-->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Keep canonical and social URLs in sync with the deployed page path. -->
   <title>NIT Sikkim - Creative_Park</title>
   <meta name="description" content="Explore NIT Sikkim student clubs, engineering projects, innovation labs, events, recruitment partners, and the alumni network in one creative hub.">
   <meta name="keywords" content="NIT Sikkim, NIT Sikkim clubs, NIT Sikkim projects, engineering student groups, alumni network, technical innovation, Sikkim">
@@ -36,7 +42,7 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="NIT Sikkim Creative Park: clubs, projects, alumni, and events">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NIT Sikkim Creative Park">
   <meta name="twitter:description" content="The hub for NIT Sikkim engineering clubs, innovation projects, events, students, and alumni.">
   <meta name="twitter:image" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
@@ -48,7 +54,7 @@
       "@type": "EducationalOrganization",
       "name": "NIT Sikkim Creative Park",
       "url": "https://codersonet.github.io/nitsikkim-creatives/",
-      "description": "A creative hub for NIT Sikkim engineering clubs, innovation projects, events, stud, and alumni.",
+      "description": "A creative hub for NIT Sikkim engineering clubs, innovation projects, events, students, and alumni.",
       "parentOrganization": {
         "@type": "CollegeOrUniversity",
         "name": "National Institute of Technology Sikkim",
@@ -61,9 +67,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stylesheets/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="page-home">
 
   <canvas id="mountain-canvas"></canvas>
 
@@ -76,10 +83,10 @@
       
       <nav class="nav-links">
         <a href="index.html" class="nav-link">OVERVIEW</a>
-        <a href="clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
-        <a href="alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
-        <a href="metrics.html" class="nav-link">METRICS</a>
-        <a href="events.html" class="nav-link">FESTS_&_EVENTS</a>
+        <a href="pages/clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
+        <a href="pages/alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
+        <a href="pages/metrics.html" class="nav-link">METRICS</a>
+        <a href="pages/events.html" class="nav-link">FESTS_&_EVENTS</a>
       </nav>
 
       <div class="nav-status">
@@ -100,8 +107,8 @@
           The ON_SIGHT hub for NIT Sikkim engineering student groups, technical innovation labs, active project teams, and alumni networks.
         </p>
         <div class="hero-actions">
-          <a href="clubs.html" class="btn btn-primary">EXPLORE_CLUBS</a>
-          <a href="companies.html" class="btn btn-ghost">RECRUITER_LOGS</a>
+          <a href="pages/clubs.html" class="btn btn-primary">EXPLORE_CLUBS</a>
+          <a href="pages/companies.html" class="btn btn-ghost">RECRUITER_LOGS</a>
         </div>
       </div>
 

@@ -18,10 +18,44 @@
   ==========================================================================
 -->
 <head>
+  <!-- Resolve shared assets and site routes from the repository root. -->
+  <base href="../">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Keep canonical and social URLs aligned with the deployed file path. -->
   <title>ANNUAL FESTS & CONCLAVES // NIT SIKKIM</title>
   <meta name="description" content="Explore NIT Sikkim's 4 annual flagship fests, technical conclaves, hackathons, robotics rover trials, cultural showcases, and sports leagues.">
+  <meta name="author" content="NIT Sikkim Creative Park">
+  <meta name="theme-color" content="#07080c">
+  <meta name="application-name" content="NIT Sikkim Creative Park">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="NIT Sikkim Creative Park">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="canonical" href="https://codersonet.github.io/nitsikkim-creatives/pages/events.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="mask-icon" href="favicon.svg" color="#e4e2e0">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NIT Sikkim Creative Park">
+  <meta property="og:title" content="Events & Fests | NIT Sikkim Creative Park">
+  <meta property="og:description" content="Explore NIT Sikkim's annual fests, technical conclaves, competitions, and campus events.">
+  <meta property="og:url" content="https://codersonet.github.io/nitsikkim-creatives/pages/events.html">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:image" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
+  <meta property="og:image:secure_url" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NIT Sikkim Creative Park: clubs, projects, alumni, and events">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Events & Fests | NIT Sikkim Creative Park">
+  <meta name="twitter:description" content="Explore NIT Sikkim's annual fests, technical conclaves, competitions, and campus events.">
+  <meta name="twitter:image" content="https://codersonet.github.io/nitsikkim-creatives/social-preview.svg">
+  <meta name="twitter:image:alt" content="NIT Sikkim Creative Park: clubs, projects, alumni, and events">
 
   <!-- Typography: Space Grotesk (Display) & Space Mono (Telemetry) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,11 +64,12 @@
   
   <!-- Global Stylesheet (WWDC Spatial Design System) -->
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stylesheets/events.css">
 
   <!-- FontAwesome Vector Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="page-events">
 
   <!-- ======================================================================
        BACKGROUND: Dynamic Mountain Topography & Sharp Twinkling Stars
@@ -55,11 +90,10 @@
       <!-- Primary Navigation Links -->
       <nav class="nav-links">
         <a href="index.html" class="nav-link">OVERVIEW</a>
-        <a href="clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
-        <a href="alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
-        <a href="metrics.html" class="nav-link">METRICS</a>
-        <a href="events.html" class="nav-link active">EVENTS</a>
-        <a href="contact.html" class="nav-link">CONTACT</a>
+        <a href="pages/clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
+        <a href="pages/alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
+        <a href="pages/metrics.html" class="nav-link">METRICS</a>
+        <a href="pages/events.html" class="nav-link active">EVENTS</a>
       </nav>
 
       <!-- Live Campus Network Status Indicator -->
@@ -97,7 +131,7 @@
             <span>UPCOMING // REGISTRATIONS_OPEN</span>
           </div>
           <img 
-            src="/udgam2k26.png" 
+            src="udgam2k26.png"
             alt="Udgam Cultural Festival Spotlight"
             class="fest-hero-image"
           />
@@ -548,11 +582,25 @@
        PAGE-SPECIFIC INTERACTIVE SCRIPT: Schedule Category Filtering
        ====================================================================== -->
   <script>
+    let activeEventFilter = 'all';
+    let eventFilterGeneration = 0;
+    const eventRevealTimers = new Set();
+
+    function cancelEventRevealTimers() {
+      eventRevealTimers.forEach(timerId => clearTimeout(timerId));
+      eventRevealTimers.clear();
+    }
+
     /**
      * Filters event schedule cards based on category button click
      * @param {string} filterCategory - The category to filter by ('all', 'tech', 'hackathon', etc.)
      */
     function filterEvents(filterCategory) {
+      activeEventFilter = filterCategory;
+      eventFilterGeneration += 1;
+      const generation = eventFilterGeneration;
+      cancelEventRevealTimers();
+
       const cards = document.querySelectorAll('#eventsContainer .event-card');
       const buttons = document.querySelectorAll('.filter-bar .filter-btn');
 
@@ -566,23 +614,43 @@
       });
 
       // Stagger card visibility with fluid spring-like transitions
-      cards.forEach((card, index) => {
+      let revealIndex = 0;
+      cards.forEach(card => {
         const category = card.dataset.category;
         const shouldShow = filterCategory === 'all' || category === filterCategory;
 
         if (shouldShow) {
           card.style.display = 'flex';
+          if (motionPreferenceQuery.matches) {
+            card.style.opacity = '1';
+            card.style.transform = 'none';
+            return;
+          }
+
           card.style.opacity = '0';
           card.style.transform = 'translateY(12px)';
-          setTimeout(() => {
+          const timerId = setTimeout(() => {
+            eventRevealTimers.delete(timerId);
+            if (generation !== eventFilterGeneration || card.style.display === 'none') return;
+            if (motionPreferenceQuery.matches) {
+              filterEvents(activeEventFilter);
+              return;
+            }
+
             card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          }, 35 * index);
+            card.style.transform = 'none';
+          }, Math.min(revealIndex * 20, 80));
+          eventRevealTimers.add(timerId);
+          revealIndex += 1;
         } else {
           card.style.display = 'none';
         }
       });
     }
+
+    motionPreferenceQuery.addEventListener('change', event => {
+      if (event.matches) filterEvents(activeEventFilter);
+    });
 
     // Attach click listeners to filter buttons upon DOM ready
     document.addEventListener('DOMContentLoaded', () => {

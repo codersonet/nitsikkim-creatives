@@ -1,0 +1,82 @@
+/* ==============================================================
+   Metrics page overrides
+   Keeps metric cards and analytics layouts easy to adjust independently.
+   ==============================================================
+*/
+
+.metrics-detailed-section {
+  padding: 40px 0 88px;
+}
+
+.stats-section {
+  padding: 40px 0 70px;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.page-metrics .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.page-metrics .progress-container {
+  margin: 24px 0 16px;
+}
+
+.page-metrics .progress-bar {
+  position: relative;
+  height: 5px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.page-metrics .progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--wwdc-indigo), var(--wwdc-cyan));
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+  transition: width 600ms var(--ease-spring);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stat-card .headline-lg {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: linear-gradient(180deg, #ffffff 40%, #9ca3af 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-metrics {
+  --page-accent: rgba(129, 140, 248, 0.18);
+}
+
+.page-metrics .page-header {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.page-metrics .glass-card,
+.page-metrics .stat-card {
+  border-color: rgba(129, 140, 248, 0.2);
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
