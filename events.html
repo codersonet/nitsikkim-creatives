@@ -1,59 +1,599 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ALUMNI DIRECTORY // NIT SIKKIM</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-  </head>
-  <body>
-    <canvas id="mountain-canvas"></canvas>
+<!--
+  ==========================================================================
+  NIT SIKKIM // CREATIVE PARK - EVENTS & FESTS CONCLAVE
+  ==========================================================================
+  This page showcases:
+  1. Priority Hero Spotlight: Featured Ongoing/Upcoming Major Fest Banner
+  2. The 4 Annual Flagship Fests of NIT Sikkim (Abhiyantran, Udgam, Atheleta, Innoventure)
+  3. Technical Skills Spectrum & Competencies Incubated Across Fests
+  4. Curated Timeline of Competitions, Keynotes, Hackathons, and Workshops
+  
+  MAINTAINER GUIDE:
+  - To change the featured ongoing fest: Update the content in Section 1 (#featured-fest).
+  - To update fest dates or details: Edit the cards in Section 2 (.fests-grid).
+  - To add a new competition/event: Add an .event-card to Section 4 (.projects-grid).
+  - Filter logic is driven by data-category on cards and data-filter on buttons.
+  ==========================================================================
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANNUAL FESTS & CONCLAVES // NIT SIKKIM</title>
+  <meta name="description" content="Explore NIT Sikkim's 4 annual flagship fests, technical conclaves, hackathons, robotics rover trials, cultural showcases, and sports leagues.">
 
-    <header class="navbar">
-      <div class="nav-container">
-        <a href="index.html" class="brand">
-          <span class="brand-title">NIT_SIKKIM</span>
-          <span class="label-mono brand-tag">// THE_OUTPOST</span>
-        </a>
+  <!-- Typography: Space Grotesk (Display) & Space Mono (Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Global Stylesheet (WWDC Spatial Design System) -->
+  <link rel="stylesheet" href="styles.css">
 
-        <nav class="nav-links">
-          <a href="index.html" class="nav-link">OVERVIEW</a>
-          <a href="clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
-          <a href="alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
-          <a href="metrics.html" class="nav-link">METRICS</a>
-          <a href="events.html" class="nav-link">EVENTS</a>
-        </nav>
+  <!-- FontAwesome Vector Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
-        <div class="nav-status">
-          <span class="status-dot"></span>
-          <span class="label-mono">SYS_STATUS: ACTIVE</span>
-        </div>
+  <!-- ======================================================================
+       BACKGROUND: Dynamic Mountain Topography & Sharp Twinkling Stars
+       Rendered via HTML5 Canvas in script.js (Retina HiDPI supported)
+       ====================================================================== -->
+  <canvas id="mountain-canvas"></canvas>
+
+  <!-- ======================================================================
+       GLOBAL HEADER: VisionOS Floating Capsule Pill Navigation
+       ====================================================================== -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand" title="Return to Overview">
+        <span class="brand-title">NIT_SIKKIM</span>
+        <span class="label-mono brand-tag">// THE_OUTPOST</span>
+      </a>
+      
+      <!-- Primary Navigation Links -->
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">OVERVIEW</a>
+        <a href="clubs.html" class="nav-link">CLUBS_&_PROJECTS</a>
+        <a href="alumni.html" class="nav-link">ALUMNI_DIRECTORY</a>
+        <a href="metrics.html" class="nav-link">METRICS</a>
+        <a href="events.html" class="nav-link active">EVENTS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </nav>
+
+      <!-- Live Campus Network Status Indicator -->
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="label-mono">SYS_STATUS: ACTIVE</span>
       </div>
-    </header>
+    </div>
+  </header>
 
   <main>
+    <!-- ====================================================================
+         PAGE HEADER: Telemetry & Conclave Description
+         ==================================================================== -->
     <section class="page-header">
-      <span class="label-mono">// to be updated</span>
-      <h1 class="headline-lg">COMMINIG SOON!</h1>
-      <p class="body-md">in due process</p>
+      <div class="hud-badge">
+        <span class="label-mono">// ANNUAL_CONVERGENCES</span>
+      </div>
+      <h1 class="headline-xl">FESTS & CAMPUS<br><span class="text-glow">CONCLAVES</span></h1>
+      <p class="body-md">
+        From national-level autonomous rover trials to high-altitude hackathons, cultural arts, and startup incubations. Explore the four annual flagships and scheduled engineering summits at NIT Sikkim.
+      </p>
     </section>
-    </main>
 
+    <!-- ====================================================================
+         SECTION 1: ONGOING / UPCOMING FEST HERO SPOTLIGHT
+         Given top visual priority with large cinematic preview image & live status
+         ==================================================================== -->
+    <section class="grid-container" id="featured-fest">
+      <div class="glass-card fest-hero-card">
+        <!-- Visual Hero Image Container with Live Beacon -->
+        <div class="fest-hero-image-wrapper">
+          <div class="fest-hero-badge">
+            <span class="status-dot"></span>
+            <span>UPCOMING // REGISTRATIONS_OPEN</span>
+          </div>
+          <img 
+            src="/udgam2k26.png" 
+            alt="Udgam Cultural Festival Spotlight"
+            class="fest-hero-image"
+          />
+        </div>
 
-    <footer class="footer">
-      <div id="footer-container"></div>
-    </footer>
+        <!-- Hero Fest Details & Action Call -->
+        <div>
+          <div class="card-header" style="margin-bottom: 8px;">
+            <span class="label-mono" style="color: var(--wwdc-cyan);">// Chase the Bloom!</span>
+            <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> OCT 30, 31 - NOV 1, 2026</span>
+          </div>
+          
+          <h2 class="headline-lg" style="margin-bottom: 12px;">UDGAM 2k26</h2>
+          
+          <p class="body-md" style="margin-bottom: 20px;">Where ideas take flight, cultures intertwine, and every moment becomes a memory — Udgam, the spirit of NIT Sikkim, blooming amidst the Himalayas.          </p>
 
-    <script src="script.js"></script>
-  </body>
+          <!-- Skills Cultivated in this Fest -->
+          <div style="margin-bottom: 24px;">
+            <span class="label-mono text-muted" style="display: block; margin-bottom: 8px;">// EXCLUSIVITY</span>
+            <div class="alumni-tags">
+              <span class="chip">VIBRANT COMMUNITY</span>
+              <span class="chip">3 DAYS OF CELEBRATIONS</span>
+              <span class="chip">LIFELONG MEMORIES</span>
+              <span class="chip">CULTURAL COMPETITION</span>
+            </div>
+          </div>
+
+          <!-- Key Specs -->
+          <div class="alumni-tags" style="margin-bottom: 28px;">
+            <span class="chip"><i class="fa-solid fa-trophy"></i> 30+ Events</span>
+            <span class="chip"><i class="fa-solid fa-users"></i> 1,200+ DELEGATES</span>
+            <span class="chip"><i class="fa-solid fa-location-dot"></i> SOUTH SIKKIM CAMPUS</span>
+          </div>
+
+          <!-- Action Buttons with Apple Tactile Feedback -->
+          <div class="hero-actions">
+            <a href="https://udgamnits.live" class="btn btn-primary" onclick="filterEvents('tech');">INDULGE ↗</a>
+            <a href="https://udgamnits.live/events" class="btn btn-ghost">EVENTS</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: THE FOUR ANNUAL FLAGSHIP FESTS
+         4 distinct cards detailing NIT Sikkim's official annual gatherings
+         ==================================================================== -->
+    <section class="grid-container" style="margin-bottom: 24px;">
+      <div class="section-header" style="padding: 0; margin-bottom: 28px;">
+        <div>
+          <span class="label-mono" style="color: var(--wwdc-cyan);">// ANNUAL_QUADRANT</span>
+          <h2 class="headline-lg" style="font-size: 2rem; margin-top: 4px;">The 4 Annual Campus Fests</h2>
+        </div>
+        <span class="label-mono text-muted">FOUR SEASONS // FOUR CONVERGENCES</span>
+      </div>
+
+      <div class="fests-grid">
+        <!-- Fest 1: Abhiyantran (Tech Fest) -->
+        <div class="glass-card fest-card">
+          <div>
+            <div class="fest-card-image">
+              <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" alt="Abhiyantran Tech Fest" />
+            </div>
+            <div class="card-header">
+              <span class="label-mono" style="color: var(--wwdc-cyan);">FEST_01 // TECHNICAL</span>
+              <span class="label-mono">[AUTUMN]</span>
+            </div>
+            <h3 class="card-title">ABHIYANTRAN</h3>
+            <p class="body-md" style="font-size: 0.92rem;">
+              The national technical symposium of NIT Sikkim. Fosters engineering innovation, robotics obstacle trails, competitive coding, hackathons, and research paper presentations.
+            </p>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">ROBOTICS</span>
+              <span class="chip">AI / ML</span>
+              <span class="chip">AEROMODELLING</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">TIMELINE: OCT</span>
+              <button class="btn btn-ghost details-btn" style="padding: 6px 14px; font-size: 0.72rem;" onclick="filterEvents('tech')">EXPLORE ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fest 2: Udgam (Cultural Fest) -->
+        <div class="glass-card fest-card">
+          <div>
+            <div class="fest-card-image">
+              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80" alt="Udgam Cultural Fest" />
+            </div>
+            <div class="card-header">
+              <span class="label-mono" style="color: var(--wwdc-purple);">FEST_02 // CULTURAL</span>
+              <span class="label-mono">[WINTER]</span>
+            </div>
+            <h3 class="card-title">UDGAM</h3>
+            <p class="body-md" style="font-size: 0.92rem;">
+              The annual cultural fiesta celebrating Himalayan heritage, indie music, choreography, theater, digital visual art, rock bands, and celebrity pro-nights.
+            </p>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">SPATIAL ARTS</span>
+              <span class="chip">SOUND ENG</span>
+              <span class="chip">MEDIA DESIGN</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">TIMELINE: FEB</span>
+              <button class="btn btn-ghost details-btn" style="padding: 6px 14px; font-size: 0.72rem;" onclick="filterEvents('culture')">EXPLORE ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fest 3: Atheleta (Sports & Esports Fest) -->
+        <div class="glass-card fest-card">c
+          <div>
+            <div class="fest-card-image">
+              <img src="https://unsplash.com/photos/man-climbing-a-rocky-mountain-with-a-lake-below-GfGyxGo8ZwY?auto=format&fit=crop&w=800&q=80" alt="Atheleta Sports Fest" />
+            </div>
+            <div class="card-header">
+              <span class="label-mono" style="color: var(--wwdc-emerald);">FEST_03 // ATHLETICS</span>
+              <span class="label-mono">[EARLY SPRING]</span>
+            </div>
+            <h3 class="card-title">ATHELETA</h3>
+            <p class="body-md" style="font-size: 0.92rem;">
+              The high-altitude mountain sports and competitive esports meet. Inter-branch and inter-college rivalries across football, cricket, badminton, volleyball, and strategy tactical gaming.
+            </p>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">KINEMATICS</span>
+              <span class="chip">ESPORTS STRATEGY</span>
+              <span class="chip">LEADERSHIP</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">TIMELINE: MAR</span>
+              <button class="btn btn-ghost details-btn" style="padding: 6px 14px; font-size: 0.72rem;" onclick="filterEvents('sports')">EXPLORE ↗</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fest 4: Innoventure (E-Summit & Startup Conclave) -->
+        <div class="glass-card fest-card">
+          <div>
+            <div class="fest-card-image">
+              <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80" alt="Innoventure E-Summit" />
+            </div>
+            <div class="card-header">
+              <span class="label-mono" style="color: #f59e0b;">FEST_04 // VENTURE</span>
+              <span class="label-mono">[SPRING]</span>
+            </div>
+            <h3 class="card-title">INNOVENTURE</h3>
+            <p class="body-md" style="font-size: 0.92rem;">
+              The flagship entrepreneurship summit by E-Cell NIT Sikkim. Features pitch decks, investor roundtables, Himalayan artisanal product incubations, and venture funding grants.
+            </p>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">VENTURE DESIGN</span>
+              <span class="chip">FINTECH</span>
+              <span class="chip">PRODUCT MGMT</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">TIMELINE: APR</span>
+              <button class="btn btn-ghost details-btn" style="padding: 6px 14px; font-size: 0.72rem;" onclick="filterEvents('venture')">EXPLORE ↗</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: SKILLS & TECHNICAL COMPETENCY SPECTRUM
+         Highlighting the engineering proficiencies nurtured through these fests
+         ==================================================================== -->
+    <section class="grid-container" style="margin-bottom: 40px;">
+      <div class="section-header" style="padding: 0; margin-bottom: 24px;">
+        <div>
+          <span class="label-mono" style="color: var(--wwdc-cyan);">// TECHNICAL_SPECTRUM</span>
+          <h2 class="headline-lg" style="font-size: 2rem; margin-top: 4px;">Competencies Incubated In Fests</h2>
+        </div>
+        <div class="hud-badge" style="margin-bottom: 0;">
+          <span class="label-mono">ANALYSIS_INDEX // ACTIVE</span>
+        </div>
+      </div>
+
+      <div class="competency-spectrum-grid">
+        <!-- Competency 1: Spatial Computing & Photogrammetry -->
+        <div class="glass-card competency-card">
+          <div class="card-header" style="margin: 0;">
+            <span class="label-mono text-muted">// SPATIAL_STACK</span>
+            <span class="headline-lg" style="font-size: 1.5rem; color: var(--wwdc-cyan);">94%</span>
+          </div>
+          <h4 class="card-title" style="font-size: 1.2rem; margin: 0;">SPATIAL COMPUTING & VR</h4>
+          <p class="body-md" style="font-size: 0.88rem;">
+            Real-time WebGL, photogrammetry terrain mapping, and spatial interactive shaders practiced during design hackathons.
+          </p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 94%;"></div>
+          </div>
+          <div class="alumni-tags" style="margin-top: 4px;">
+            <span class="chip">THREE.JS</span>
+            <span class="chip">GLSL</span>
+            <span class="chip">RAYCASTING</span>
+          </div>
+        </div>
+
+        <!-- Competency 2: Autonomous Robotics & Kinematics -->
+        <div class="glass-card competency-card">
+          <div class="card-header" style="margin: 0;">
+            <span class="label-mono text-muted">// ROBOTICS_STACK</span>
+            <span class="headline-lg" style="font-size: 1.5rem; color: var(--wwdc-purple);">91%</span>
+          </div>
+          <h4 class="card-title" style="font-size: 1.2rem; margin: 0;">AUTONOMOUS ROBOTICS & SLAM</h4>
+          <p class="body-md" style="font-size: 0.88rem;">
+            LiDAR-based terrain obstacle navigation, ROS2 path-planning, and high-altitude rover kinematics developed for Robo-Terrain.
+          </p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 91%; background: linear-gradient(90deg, var(--wwdc-purple), var(--wwdc-cyan));"></div>
+          </div>
+          <div class="alumni-tags" style="margin-top: 4px;">
+            <span class="chip">ROS2</span>
+            <span class="chip">OPENCV</span>
+            <span class="chip">C++</span>
+          </div>
+        </div>
+
+        <!-- Competency 3: Distributed AI & Machine Learning -->
+        <div class="glass-card competency-card">
+          <div class="card-header" style="margin: 0;">
+            <span class="label-mono text-muted">// NEURAL_STACK</span>
+            <span class="headline-lg" style="font-size: 1.5rem; color: var(--wwdc-emerald);">88%</span>
+          </div>
+          <h4 class="card-title" style="font-size: 1.2rem; margin: 0;">NEURAL INTERFACES & AI</h4>
+          <p class="body-md" style="font-size: 0.88rem;">
+            On-device edge inference, LLM agent integration, and computer vision deployed during the 36-hour DevHack marathon.
+          </p>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 88%; background: linear-gradient(90deg, var(--wwdc-emerald), var(--wwdc-cyan));"></div>
+          </div>
+          <div class="alumni-tags" style="margin-top: 4px;">
+            <span class="chip">PYTORCH</span>
+            <span class="chip">DIFFUSION</span>
+            <span class="chip">ONNX</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====================================================================
+         SECTION 4: DETAILED EVENTS & COMPETITIONS SCHEDULE
+         Located below the fests as requested, with category filtering & details
+         ==================================================================== -->
+    <section class="events-section" id="events-timeline">
+      <div class="section-header">
+        <div>
+          <span class="label-mono" style="color: var(--wwdc-cyan);">// CURATED_TIMELINE</span>
+          <h2 class="headline-lg" style="font-size: 2rem; margin-top: 4px;">Scheduled Events & Competitions</h2>
+        </div>
+        
+        <!-- Interactive Category Filter Bar -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">ALL_SCHEDULE</button>
+          <button class="filter-btn" data-filter="tech">ABHIYANTRAN_TECH</button>
+          <button class="filter-btn" data-filter="hackathon">DEV_HACK</button>
+          <button class="filter-btn" data-filter="robotics">ROBO_TERRAIN</button>
+          <button class="filter-btn" data-filter="culture">UDGAM_CULTURE</button>
+          <button class="filter-btn" data-filter="sports">SPORTS_ESPORTS</button>
+        </div>
+      </div>
+
+      <!-- Events Grid Container -->
+      <div class="grid-container projects-grid" id="eventsContainer">
+        
+        <!-- Event Card 1: Abhiyantran Grand Keynote -->
+        <div class="glass-card event-card" data-category="tech">
+          <div>
+            <div class="card-header">
+              <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> OCT 28, 2026</span>
+              <span class="label-mono" style="color: var(--wwdc-cyan);">// KEYNOTE</span>
+            </div>
+            <h3 class="card-title">ABHIYANTRAN INAUGURAL KEYNOTE</h3>
+            <p class="body-md">
+              Opening keynote exploring space exploration robotics, high-altitude alpine infrastructure, and quantum hardware with visiting scientists from ISRO and Google Research.
+            </p>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">MAIN AUDITORIUM</span>
+              <span class="chip">HYBRID BROADCAST</span>
+              <span class="chip">ALUMNI PANEL</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">ORGANIZER: TECH_COUNCIL</span>
+              <a href="#" class="btn btn-primary" onclick="alert('Seat reserved for Inaugural Keynote.'); return false;">RESERVE_SEAT ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 2: DevHack 36h Sprint -->
+        <div class="glass-card event-card" data-category="hackathon">
+          <div>
+            <div class="card-header">
+              <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> NOV 14 - 15, 2026</span>
+              <span class="label-mono" style="color: var(--wwdc-emerald);">// 36H HACK</span>
+            </div>
+            <h3 class="card-title">DEV_HACK HIMALAYAS</h3>
+            <p class="body-md">
+              Intense 36-hour sprint tackling remote alpine connectivity, distributed micro-commerce, edge AI inference, and decentralized disaster telemetry.
+            </p>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">COMPUTING LAB 01</span>
+              <span class="chip">₹1.0L PRIZE</span>
+              <span class="chip">AI & WEB3</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">ORGANIZER: CODING_CLUB</span>
+              <a href="#" class="btn btn-ghost" onclick="alert('Access pass granted to DevHack 2026.'); return false;">JOIN_DISCORD ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 3: Robo-Terrain Rover Trials -->
+        <div class="glass-card event-card" data-category="robotics">
+          <div>
+            <div class="card-header">
+              <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> DEC 05, 2026</span>
+              <span class="label-mono" style="color: var(--wwdc-purple);">// ROBOTICS</span>
+            </div>
+            <h3 class="card-title">ROBO-TERRAIN 4.0</h3>
+            <p class="body-md">
+              Autonomous alpine rover obstacle navigation trials on a simulated slope. Teams deploy SLAM algorithms, LiDAR sensors, and kinetic shock absorbers.
+            </p>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">OPEN GROUND ARENA</span>
+              <span class="chip">HARDWARE SPECS</span>
+              <span class="chip">LIDAR TRACK</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">ORGANIZER: ROBOTICS_CELL</span>
+              <a href="#" class="btn btn-ghost" onclick="alert('Rulebook downloaded for Robo-Terrain 4.0.'); return false;">RULEBOOK ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 4: Spatial Computing & Vision AI Workshop -->
+        <div class="glass-card event-card" data-category="tech">
+          <div>
+            <div class="card-header">
+              <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> DEC 18, 2026</span>
+              <span class="label-mono" style="color: var(--wwdc-cyan);">// WORKSHOP</span>
+            </div>
+            <h3 class="card-title">SPATIAL UI & VISION AI</h3>
+            <p class="body-md">
+              Hands-on masterclass covering Apple WWDC-style fluid gesture engineering, neural rendering, photogrammetry, and spatial web shader architectures.
+            </p>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">SEMINAR HALL 02</span>
+              <span class="chip">HANDS-ON LAB</span>
+              <span class="chip">APPLE HIG</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">HOST: DESIGN_&_MEDIA</span>
+              <a href="#" class="btn btn-primary" onclick="alert('Calendar seat reserved!'); return false;">RESERVE_SEAT ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 5: Udgam Battle of Bands -->
+        <div class="glass-card event-card" data-category="culture">
+          <div>
+            <div class="card-header">
+              <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> FEB 19, 2027</span>
+              <span class="label-mono" style="color: var(--wwdc-purple);">// CULTURAL</span>
+            </div>
+            <h3 class="card-title">REVERB // BATTLE OF THE BANDS</h3>
+            <p class="body-md">
+              The flagship music face-off at Udgam. Top collegiate rock, metal, indie, and fusion bands battle it out on the open-air alpine amphitheater stage.
+            </p>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">OPEN AMPHITHEATER</span>
+              <span class="chip">LIVE CONCERT</span>
+              <span class="chip">JUDGES FROM INDIE</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">ORGANIZER: MUSIC_CLUB</span>
+              <a href="#" class="btn btn-ghost" onclick="alert('Entry ticket registered for Reverb.'); return false;">GET_TICKET ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Card 6: Apex Esports Championship -->
+        <div class="glass-card event-card" data-category="sports">
+          <div>
+            <div class="card-header">
+              <span class="event-date-badge"><i class="fa-regular fa-calendar"></i> MAR 14, 2027</span>
+              <span class="label-mono" style="color: var(--wwdc-emerald);">// ESPORTS</span>
+            </div>
+            <h3 class="card-title">APEX ESPORTS CONCLAVE</h3>
+            <p class="body-md">
+              High-frequency competitive gaming arena for tactical FPS, strategy MOBAs, and sim-racing hosted on gigabit fiber LAN inside the computing complex.
+            </p>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <div class="alumni-tags" style="margin-bottom: 16px;">
+              <span class="chip">HPC LAB</span>
+              <span class="chip">GIGABIT LAN</span>
+              <span class="chip">STREAMED LIVE</span>
+            </div>
+            <div class="card-footer">
+              <span class="label-mono text-muted">ORGANIZER: GAMING_GUILD</span>
+              <a href="#" class="btn btn-ghost" onclick="alert('Squad slot registered.'); return false;">REGISTER_SQUAD ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       GLOBAL FOOTER INJECTOR: Populated dynamically by script.js
+       Renders the 2-column terminal links directory & network sync
+       ====================================================================== -->
+  <div id="footer-container"></div>
+
+  <!-- Shared Global Script -->
+  <script src="script.js"></script>
+
+  <!-- ======================================================================
+       PAGE-SPECIFIC INTERACTIVE SCRIPT: Schedule Category Filtering
+       ====================================================================== -->
+  <script>
+    /**
+     * Filters event schedule cards based on category button click
+     * @param {string} filterCategory - The category to filter by ('all', 'tech', 'hackathon', etc.)
+     */
+    function filterEvents(filterCategory) {
+      const cards = document.querySelectorAll('#eventsContainer .event-card');
+      const buttons = document.querySelectorAll('.filter-bar .filter-btn');
+
+      // Update active button state
+      buttons.forEach(btn => {
+        if (btn.dataset.filter === filterCategory) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Stagger card visibility with fluid spring-like transitions
+      cards.forEach((card, index) => {
+        const category = card.dataset.category;
+        const shouldShow = filterCategory === 'all' || category === filterCategory;
+
+        if (shouldShow) {
+          card.style.display = 'flex';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(12px)';
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 35 * index);
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Attach click listeners to filter buttons upon DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-bar .filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cat = btn.dataset.filter;
+          filterEvents(cat);
+        });
+      });
+    });
+  </script>
+</body>
 </html>
