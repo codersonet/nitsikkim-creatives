@@ -1,7 +1,0 @@
-<!-- Compact mountain mark used as the browser tab and site shortcut icon. -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="6" fill="#131313"/>
-  <path d="M6 48 19 34l10 8 13-18 16 15v19H6Z" fill="#353534"/>
-  <path d="m6 50 13-14 10 8 13-18 16 15" fill="none" stroke="#e4e2e0" stroke-width="3"/>
-  <text x="10" y="20" fill="#ffffff" font-family="monospace" font-size="12" font-weight="700">N/S</text>
-</svg>
