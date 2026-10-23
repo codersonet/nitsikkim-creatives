@@ -673,7 +673,7 @@ function loadGlobalFooter() {
 
       <div class="footer-meta">
         <span class="label-mono text-muted">&copy; ${new Date().getFullYear()} NIT SIKKIM // THE OUTPOST</span>
-        <span class="label-mono text-muted">ENGINEERED FOR FLUID SPATIAL COMPUTING</span>
+        <span class="label-mono text-muted">ENGINEERED WITH ❤️ FOR ENGINEERS</span>
       </div>
     </footer>
   `;
